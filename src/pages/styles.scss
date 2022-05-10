@@ -20,8 +20,6 @@ h2 {
   color: #cccccc;
 }
 
-
-
 .wrapper {
   display: flex;
   align-items: center;
@@ -55,8 +53,6 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
-
-
 h2.inactive {
   color: #cccccc;
 }
@@ -65,8 +61,6 @@ h2.active {
   color: #0d0d0d;
   border-bottom: 2px solid #5fbae9;
 }
-
-
 
 input[type="button"],
 input[type="submit"],
@@ -167,7 +161,6 @@ input[type="password"]:focus {
 input[type="password"]:placeholder {
   color: #cccccc;
 }
-
 
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
@@ -287,12 +280,16 @@ input[type="password"]:placeholder {
   width: 100%;
 }
 
-
-
 *:focus {
   outline: none;
 }
 
 #icon {
   width: 60%;
+}
+
+.buton button {
+  background: #39ace7;
+  margin-left: 100px;
+  margin-right: 100px;
 }

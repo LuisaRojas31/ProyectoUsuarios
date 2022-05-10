@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import "./styles.scss";
 import logo from "../assets/logo.png";
 import { MyContext } from "../context/Context";
@@ -6,14 +6,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
- 
-  const { usuario, setUsuario,setResultado } = useContext(MyContext);
+  const { usuario, setUsuario, setResultado } = useContext(MyContext);
   const navigate = useNavigate();
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
   };
 
   const onChange = (e) => {
@@ -21,27 +18,21 @@ const Login = () => {
       ...usuario,
       [e.target.name]: e.target.value,
     });
-    console.log(usuario)
+    console.log(usuario);
   };
 
-  const onChangeBotom = async() => {
-    let json= {
-      "email":usuario.email,
-      "password":usuario.password,
+  const onChangeBotom = async () => {
+    let json = {
+      email: usuario.email,
+      password: usuario.password,
     };
-     const result = await axios.post("https://reqres.in/api/login", json);
-     setResultado(result.data)
-    
-      localStorage.token= result.data.token;
-    
-     
+    const result = await axios.post("https://reqres.in/api/login", json);
+    setResultado(result.data);
 
-   navigate("list")  
-   
- };
+    localStorage.token = result.data.token;
 
-
-
+    navigate("list");
+  };
 
   return (
     <React.Fragment>

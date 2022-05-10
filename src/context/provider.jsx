@@ -8,6 +8,10 @@ export const Provider = ({ children }) => {
     error: false,
   });
   const [resultado, setResultado] = useState("");
+  const [abrir, setAbrir] = useState(false);
+  const [page, setPage] = useState(1);
+  const [onNext] = useState();
+  const [onPrivious] = useState();
 
   return (
     <MyContext.Provider
@@ -16,6 +20,12 @@ export const Provider = ({ children }) => {
         setUsuario,
         resultado,
         setResultado,
+        abrir,
+        setAbrir,
+        page,
+        setPage,
+        onNext,
+        onPrivious,
       }}
     >
       {children}

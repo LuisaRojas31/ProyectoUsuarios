@@ -1,15 +1,20 @@
 import { useContext } from "react";
+import ModalDos from "../../componentes/Modal";
+
 import { MyContext } from "../../context/Context";
 import { List } from "../../network/list";
+
 import "./styles.scss";
 
 const ListUsers = () => {
   const { resultado } = useContext(MyContext);
+
   List();
+
   return (
     <>
-      <div>
-        <h1>Hola desde lista</h1>
+      <div className="encabezado">
+        <h1>Bienvenid@</h1>
       </div>
       <div className="container">
         {resultado.data &&
@@ -23,6 +28,7 @@ const ListUsers = () => {
                 <span className="lastName">{item.last_name}</span>
               </div>
               <p className="email">{item.email}</p>
+              <ModalDos />
             </li>
           ))}
       </div>
