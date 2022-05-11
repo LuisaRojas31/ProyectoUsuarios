@@ -11,9 +11,7 @@ export const List = () => {
         const response = await axios.get(
           `https://reqres.in/api/users?page=${page}`
         );
-        console.log("hola data", response.data);
-        const { data, status } = response;
-        if (status === 200) setResultado(data);
+        setResultado(response.data);
       } catch (e) {
         console.log(e);
       }

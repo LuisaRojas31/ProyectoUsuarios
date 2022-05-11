@@ -1,6 +1,15 @@
 import React, { useContext } from "react";
-import { Modal, Button } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "react-bootstrap";
 import { MyContext } from "../context/Context";
+import { Input, Label, FormGroup } from "reactstrap";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ModalDos = () => {
   const { abrir, setAbrir } = useContext(MyContext);
@@ -8,31 +17,35 @@ const ModalDos = () => {
   const handleModal = () => {
     setAbrir(true);
   };
+
   return (
     <>
-      <Button onClick={() => handleModal()}>Actualizar</Button>
+      <div className="principal">
+        <div className="secundario">
+          <Button color="black" onClick={handleModal}>
+            Actualizar
+          </Button>
+        </div>
+      </div>
 
-      <Modal show={abrir} onHide={() => handleModal()}>
-        <Modal.Header>
-          <input
-            type="email"
-            className="fadeIn second"
-            name="nombre"
-            placeholder="Nombre"
-          ></input>
-        </Modal.Header>
-        <Modal.Body>
-          <input
-            type="email"
-            className="fadeIn second"
-            name="email"
-            placeholder="Email"
-          ></input>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setAbrir(false)}>Actualizar</Button>
-          <Button onClick={() => setAbrir(false)}>Cerrar</Button>
-        </Modal.Footer>
+      <Modal show={abrir}>
+        <ModalHeader>Actualizar</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input type="text" id="email" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="nombre">Nombre</Label>
+            <Input type="text" id="nombre" />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary">Actualizar</Button>
+          <Button color="secundary" onClick={() => setAbrir(false)}>
+            Cerrar
+          </Button>
+        </ModalFooter>
       </Modal>
     </>
   );

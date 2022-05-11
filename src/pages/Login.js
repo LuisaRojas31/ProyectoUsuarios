@@ -11,6 +11,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (usuario.email === "") {
+      alert("email requerido");
+      return;
+    } else if (usuario.password === "") {
+      alert("password requerido");
+      return;
+    }
   };
 
   const onChange = (e) => {
@@ -18,7 +25,6 @@ const Login = () => {
       ...usuario,
       [e.target.name]: e.target.value,
     });
-    console.log(usuario);
   };
 
   const onChangeBotom = async () => {

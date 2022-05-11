@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Actualizar from "../pages/actualizar/Actualizar";
+import CrearUsuario  from "../pages/create/CrearUsuario";
 import ListUsers from "../pages/List/ListUsers";
 import Login from "../pages/Login";
 
@@ -10,7 +10,7 @@ const RouterContainer = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/list" element={<ListUsers />} />
-        <Route path="/actuali" element={<Actualizar />} />
+        <Route path="/crear" element={<CrearUsuario />} />
       </Routes>
     </BrowserRouter>
   );
