@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import ModalDos from "../../componentes/Modal";
 
 import { MyContext } from "../../context/Context";
 import { List } from "../../network/list";
+import { Button } from "react-bootstrap";
 
 import "./styles.scss";
 
 const ListUsers = () => {
-  const { resultado } = useContext(MyContext);
+  const { resultado, setAbrir, abrir, page, setPage } = useContext(MyContext);
+  const [email, setEmail] = useState("");
+  const [nombre, setNombre] = useState("");
 
   List();
 
@@ -35,6 +38,12 @@ const ListUsers = () => {
         </Link>
         <p>Crear Usuario</p>
       </div>
+      <div className="botones">
+        <button onClick={() => setPage(page < 1 ? page - 1 : 1)}>
+          Anterior
+        </button>
+        <button>Siguiente</button>
+      </div>
       <div className="container">
         {resultado.data &&
           resultado.data.map((item) => (
@@ -47,9 +56,23 @@ const ListUsers = () => {
                 <span className="lastName">{item.last_name}</span>
               </div>
               <p className="email">{item.email}</p>
-              <ModalDos />
+              <div className="principal">
+                <div className="secundario">
+                  <Button
+                    color="black"
+                    onClick={() => {
+                      setEmail(item.email);
+                      setNombre(item.first_name);
+                      setAbrir(true);
+                    }}
+                  >
+                    Actualizar
+                  </Button>
+                </div>
+              </div>
             </li>
           ))}
+        {abrir && <ModalDos item={{ first_name: nombre, email }} />}
       </div>
     </>
   );

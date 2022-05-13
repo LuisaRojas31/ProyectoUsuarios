@@ -1,24 +1,27 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
-import { MyContext } from "../context/Context";
+import { useState } from "react";
 
-export const Post = () => {
-  const { setCrearUsuario } = useContext(MyContext);
+export const Post = (setUsuarioCreado) => {
+  const [usuarioCrear,setUsuarioCrear] = useState({
+    nombre: "",
+    trabajo: "",
+  });
 
-  useEffect(() => {
-    const Crear = async () => {
-      try {
-        const responseDos = await axios.put("https://reqres.in/api/users");
-        console.log("hola put", responseDos);
-        const { data, status } = responseDos;
-        if (status === 200) setCrearUsuario(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
+  const peticionPost = async () => {
+    const response = await axios.post(
+      "https://reqres.in/api/users",
+      usuarioCrear
+    );
 
-    Crear();
-  }, [setCrearUsuario]);
+    if (response.ok) setUsuarioCreado(response);
+    console.log(response);
+  };
 
-  return;
+  
+
+  return {
+    peticionPost,
+    usuarioCrear,
+    setUsuarioCrear
+  };
 };

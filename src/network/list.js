@@ -5,7 +5,7 @@ import { MyContext } from "../context/Context";
 export const List = () => {
   const { setResultado, page } = useContext(MyContext);
 
-  useEffect(() => {
+  
     const instru = async () => {
       try {
         const response = await axios.get(
@@ -18,7 +18,7 @@ export const List = () => {
     };
 
     instru();
-  }, [setResultado, page]);
+ 
 
   return;
 };

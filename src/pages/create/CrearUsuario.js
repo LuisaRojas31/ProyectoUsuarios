@@ -1,24 +1,42 @@
-import { useContext } from "react";
-import { MyContext } from "../../context/Context";
+import { useEffect, useState } from "react";
+import { Post } from "../../network/post";
 import "./styles.scss";
 
 const CrearUsuario = () => {
-  const { name, setName, job, setJob } = useContext(MyContext);
+  const [usuarioCreado, setUsuarioCreado] = useState(false);
+  const [alert, setAlert] = useState("");
+  const { peticionPost, usuarioCrear, setUsuarioCrear } = Post();
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (name === "") {
-      alert("Nombre requerido");
-    } else if (job === "") {
-      alert("Trabajo requerido");
+    setAlert("");
+    if (usuarioCrear.nombre === "") {
+      setAlert("Nombre requerido");
+      return;
+    } else if (usuarioCrear.trabajo === "") {
+      setAlert("Trabajo requerido");
       return;
     }
+
+    peticionPost(setUsuarioCreado(true));
+  };
+
+  useEffect(() => {
+    if (usuarioCreado) setAlert("Usuario creado");
+  }, [usuarioCreado]);
+
+  const onChange = (e) => {
+    setUsuarioCrear({
+      ...usuarioCrear,
+      [e.target.name]: e.target.value,
+    });
+    console.log(usuarioCrear);
   };
 
   return (
     <>
       <div className="create__container">
-        <form className="create__form">
+        <form onSubmit={handleClick} className="create__form">
           <h1 className="create__title" data-testid="create__title">
             Crear usuario
           </h1>
@@ -27,20 +45,24 @@ const CrearUsuario = () => {
             <span className="required">*</span>
           </label>
           <input
-            data-testid="create__name"
             className="create__input"
             type="text"
-            onChange={(e) => setName(e.target.value)}
+            name="nombre"
+            value={usuarioCrear.nombre}
+            placeholder="nombre"
+            onChange={onChange}
           />
           <label>
             Trabajo
             <span className="required">*</span>
           </label>
           <input
-            data-testid="create__job"
+            name="trabajo"
+            value={usuarioCrear.trabajo}
+            placeholder="trabajo"
             className="create__input"
             type="text"
-            onChange={(e) => setJob(e.target.value)}
+            onChange={onChange}
           />
           <div>
             <p>
@@ -51,11 +73,12 @@ const CrearUsuario = () => {
           </div>
           <button
             className="create__btn"
-            onClick={handleClick}
+            onClick={() => handleClick()}
             data-testid="create__btn"
           >
             Crear Usuario
           </button>
+          <span>{alert}</span>
         </form>
       </div>
     </>
