@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import CrearUsuario  from "../pages/create/CrearUsuario";
+import CrearUsuario from "../pages/create/CrearUsuario";
 import ListUsers from "../pages/List/ListUsers";
 import Login from "../pages/Login";
 

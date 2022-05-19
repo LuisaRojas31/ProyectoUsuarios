@@ -8,18 +8,17 @@ import {
 } from "react-bootstrap";
 import { MyContext } from "../context/Context";
 import { Input, Label, FormGroup } from "reactstrap";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Put } from "../network/put";
+import { useApi } from "../network/useApi";
 
 const ModalDos = ({ item }) => {
   const { abrir, setAbrir } = useContext(MyContext);
   const [email, setEmail] = useState(item.email);
   const [nombre, setNombre] = useState(item.first_name);
-  const { resultadoDos } = Put();
+  const { actualizar } = useApi();
 
-  const handleClick = () => {
-    resultadoDos();
+  const handleClick = (item) => {
+    actualizar(item);
   };
 
   return (
@@ -49,7 +48,8 @@ const ModalDos = ({ item }) => {
         <Button
           color="primary"
           onClick={() => {
-            handleClick();
+            handleClick(item);
+            setAbrir(false);
           }}
         >
           Actualizar

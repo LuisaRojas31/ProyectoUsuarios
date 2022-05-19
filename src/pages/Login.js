@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import "./styles.scss";
 import logo from "../assets/logo.png";
 import { MyContext } from "../context/Context";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useApi } from "../network/useApi";
 
 const Login = () => {
-  const { usuario, setUsuario, setResultado } = useContext(MyContext);
-  const navigate = useNavigate();
+  const { usuario, setUsuario } = useContext(MyContext);
+  const { login } = useApi();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,17 +26,8 @@ const Login = () => {
     });
   };
 
-  const onChangeBotom = async () => {
-    let json = {
-      email: usuario.email,
-      password: usuario.password,
-    };
-    const result = await axios.post("https://reqres.in/api/login", json);
-    setResultado(result.data);
-
-    localStorage.token = result.data.token;
-
-    navigate("list");
+  const onChangeBotom = () => {
+    login();
   };
 
   return (

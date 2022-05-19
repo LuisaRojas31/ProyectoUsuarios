@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
-import { Post } from "../../network/post";
+import { useApi } from "../../network/useApi";
 import "./styles.scss";
 
 const CrearUsuario = () => {
-  const [usuarioCreado, setUsuarioCreado] = useState(false);
   const [alert, setAlert] = useState("");
-  const { peticionPost, usuarioCrear, setUsuarioCrear } = Post();
+  const {
+    crearUsuario,
+    usuarioCrear,
+    setUsuarioCrear,
+    setUsuarioCreado,
+    usuarioCreado,
+  } = useApi();
 
   const handleClick = (e) => {
     e.preventDefault();
     setAlert("");
-    if (usuarioCrear.nombre === "") {
+    if (usuarioCrear?.nombre === "") {
       setAlert("Nombre requerido");
       return;
-    } else if (usuarioCrear.trabajo === "") {
+    } else if (usuarioCrear?.trabajo === "") {
       setAlert("Trabajo requerido");
       return;
     }
 
-    peticionPost(setUsuarioCreado(true));
+    crearUsuario(setUsuarioCreado(true));
   };
 
   useEffect(() => {
@@ -48,7 +53,7 @@ const CrearUsuario = () => {
             className="create__input"
             type="text"
             name="nombre"
-            value={usuarioCrear.nombre}
+            value={usuarioCrear?.nombre}
             placeholder="nombre"
             onChange={onChange}
           />
@@ -58,7 +63,7 @@ const CrearUsuario = () => {
           </label>
           <input
             name="trabajo"
-            value={usuarioCrear.trabajo}
+            value={usuarioCrear?.trabajo}
             placeholder="trabajo"
             className="create__input"
             type="text"

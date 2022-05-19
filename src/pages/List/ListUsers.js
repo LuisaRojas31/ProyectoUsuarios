@@ -1,19 +1,23 @@
-import { useContext, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModalDos from "../../componentes/Modal";
 
 import { MyContext } from "../../context/Context";
-import { List } from "../../network/list";
 import { Button } from "react-bootstrap";
 
 import "./styles.scss";
+import { useApi } from "../../network/useApi";
 
 const ListUsers = () => {
   const { resultado, setAbrir, abrir, page, setPage } = useContext(MyContext);
   const [email, setEmail] = useState("");
   const [nombre, setNombre] = useState("");
+  const [id, setId] = useState("");
+  const { listaUsarios } = useApi();
 
-  List();
+  useEffect(() => {
+    listaUsarios();
+  }, [page]);
 
   return (
     <>
@@ -39,10 +43,16 @@ const ListUsers = () => {
         <p>Crear Usuario</p>
       </div>
       <div className="botones">
-        <button onClick={() => setPage(page < 1 ? page - 1 : 1)}>
+        <button onClick={() => setPage(page > 1 ? page - 1 : page)}>
           Anterior
         </button>
-        <button>Siguiente</button>
+        <button
+          onClick={() =>
+            setPage(page < resultado.total_pages ? page + 1 : page)
+          }
+        >
+          Siguiente
+        </button>
       </div>
       <div className="container">
         {resultado.data &&
@@ -63,6 +73,7 @@ const ListUsers = () => {
                     onClick={() => {
                       setEmail(item.email);
                       setNombre(item.first_name);
+                      setId(item.id);
                       setAbrir(true);
                     }}
                   >
@@ -72,7 +83,7 @@ const ListUsers = () => {
               </div>
             </li>
           ))}
-        {abrir && <ModalDos item={{ first_name: nombre, email }} />}
+        {abrir && <ModalDos item={{ first_name: nombre, email, id }} />}
       </div>
     </>
   );
